@@ -90,10 +90,17 @@ ORDER BY e.emp_no;
 	
 SELECT * FROM employees AS e
 WHERE e.first_name = 'Hercules'
-and e.last_name LIKE 'B%';
+AND e.last_name LIKE 'B%';
 
 	-- List all employees in the Sales department, 
 		-- including their employee number, last name, first name, and department name.
+		
+SELECT * FROM employees AS e
+WHERE e.emp_no IN (
+	SELECT d_e.emp_no FROM dept_emp AS d_e WHERE d_e.dept_no = (
+		SELECT d.dept_no FROM departments AS d WHERE d.dept_name = 'Sales'
+	)
+);
 
 	-- List all employees in the Sales and Development departments, 
 		-- including their employee number, last name, first name, and department name.
