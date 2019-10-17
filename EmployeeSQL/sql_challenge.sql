@@ -95,12 +95,21 @@ AND e.last_name LIKE 'B%';
 	-- List all employees in the Sales department, 
 		-- including their employee number, last name, first name, and department name.
 		
-SELECT * FROM employees AS e
-WHERE e.emp_no IN (
-	SELECT d_e.emp_no FROM dept_emp AS d_e WHERE d_e.dept_no = (
-		SELECT d.dept_no FROM departments AS d WHERE d.dept_name = 'Sales'
-	)
-);
+-- The below method is using subqueries to solve the Sales department question.
+	-- SELECT * FROM employees AS e
+	-- WHERE e.emp_no IN (
+	-- 	SELECT d_e.emp_no FROM dept_emp AS d_e WHERE d_e.dept_no = (
+	-- 		SELECT d.dept_no FROM departments AS d WHERE d.dept_name = 'Sales'
+	-- 	)
+	-- );
+-- The below method is using JOIN to solve the Sales department question.
+
+SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+FROM employees AS e
+LEFT JOIN dept_emp AS d_e ON e.emp_no = d_e.emp_no
+LEFT JOIN departments AS d ON d_e.dept_no = d.dept_no
+WHERE d.dept_name = 'Sales'
+ORDER BY e.emp_no;
 
 	-- List all employees in the Sales and Development departments, 
 		-- including their employee number, last name, first name, and department name.
