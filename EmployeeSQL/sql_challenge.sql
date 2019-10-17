@@ -128,3 +128,19 @@ SELECT e.last_name, COUNT(*)
 FROM employees AS e
 GROUP BY e.last_name
 ORDER BY count DESC;
+
+
+
+
+-- Search ID Number for Easter Egg:
+SELECT * FROM employees AS e
+LEFT JOIN salaries AS s ON s.emp_no = e.emp_no
+LEFT JOIN dept_emp AS d_e ON d_e.emp_no = e.emp_no
+LEFT JOIN departments AS d ON d.dept_no = d_e.dept_no
+WHERE e.emp_no = '499942'
+
+
+-- Analysis: I feel as though April Foolsday should have the birth date 4/1/1963, do the following to amend:
+	-- UPDATE employees AS e
+	-- SET e.birth_date = 1963-04-01,
+	-- WHERE e.first_name = 'April' AND e.last_name = 'Foolsday'
